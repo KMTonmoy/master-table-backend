@@ -1,12 +1,10 @@
 {
   "version": 2,
   "name": "master-table-server",
-  "buildCommand": "npm install",
-  "installCommand": "npm install",
   "builds": [
     {
       "src": "src/server.js",
-      "use": "@vercel/node@3.2.0"
+      "use": "@vercel/node@5.0.0"
     }
   ],
   "routes": [
