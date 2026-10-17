@@ -20,7 +20,7 @@ export const optionalAuthenticate = asyncHandler(async (req, res, next) => {
     if (!userId) return next();
 
     const user = await User.findById(userId).select(
-      "-password -resetPasswordToken -resetPasswordExpires"
+      "-password -resetPasswordToken -resetPasswordExpires",
     );
     if (!user) return next();
 

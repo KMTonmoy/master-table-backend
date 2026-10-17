@@ -1,12 +1,21 @@
-import { isDbReady } from "../config/db.js";
+import { isDbReady, connectDB } from "../config/db.js";
 
-export const dbReady = (req, res, next) => {
+export const dbReady = async (req, res, next) => {
   if (!isDbReady()) {
-    return res.status(500).json({
+    try {
+      await connectDB();
+    } catch (err) {
+      console.error("DB reconnect failed:", err.message);
+    }
+  }
+
+  if (!isDbReady()) {
+    return res.status(503).json({
       success: false,
       message:
-        "Database is not configured. Set DB_URI in environment variables.",
+        "Database is not available. Check DB_URI and your MongoDB network access settings.",
     });
   }
+
   next();
 };
