@@ -8,28 +8,16 @@ import app from "./app.js";
 import { connectDB } from "./config/db.js";
 import { env } from "./config/env.js";
 
-let cached = globalThis.__mt_server__;
+connectDB().catch((err) => {
+  console.error("Failed to connect to DB:", err.message);
+});
 
-const start = async () => {
-  try {
-    await connectDB();
-  } catch (err) {
-    console.error("Failed to connect to DB:", err.message);
-  }
-
-  if (!env.IS_VERCEL) {
-    app.listen(env.PORT, () => {
-      console.log(
-        `🚀 Server running on http://localhost:${env.PORT} [${env.NODE_ENV}]`
-      );
-    });
-  }
-};
-
-if (!cached) {
-  cached = globalThis.__mt_server__ = { started: start() };
+if (!env.IS_VERCEL) {
+  app.listen(env.PORT, () => {
+    console.log(
+      `🚀 Server running on http://localhost:${env.PORT} [${env.NODE_ENV}]`,
+    );
+  });
 }
-
-await cached.started;
 
 export default app;
