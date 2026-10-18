@@ -31,13 +31,13 @@ export const env = {
   GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET || "",
   GOOGLE_CALLBACK_URL:
     process.env.GOOGLE_CALLBACK_URL ||
-    "http://localhost:8000/api/auth/google/callback",
+    "https://master-table-server.vercel.app/api/auth/google/callback",
 
   FACEBOOK_APP_ID: process.env.FACEBOOK_APP_ID || "",
   FACEBOOK_APP_SECRET: process.env.FACEBOOK_APP_SECRET || "",
   FACEBOOK_CALLBACK_URL:
     process.env.FACEBOOK_CALLBACK_URL ||
-    "http://localhost:8000/api/auth/facebook/callback",
+    "https://master-table-server.vercel.app/api/auth/facebook/callback",
 
   SMTP_HOST: process.env.SMTP_HOST || "",
   SMTP_PORT: Number(process.env.SMTP_PORT) || 587,

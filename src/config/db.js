@@ -1,5 +1,13 @@
+import dns from "node:dns";
 import mongoose from "mongoose";
 import { env } from "./env.js";
+
+// Force Node.js to use Google DNS for all lookups (fixes Vercel querySrv errors)
+try {
+  dns.setServers(["8.8.8.8", "8.8.4.4"]);
+} catch (e) {
+  console.warn("Failed to set DNS servers:", e.message);
+}
 
 let isConnected = false;
 
@@ -27,7 +35,9 @@ export const connectDB = async () => {
   });
 
   isConnected = true;
-  console.log(`MongoDB connected: ${conn.connection.host} / ${conn.connection.name}`);
+  console.log(
+    `MongoDB connected: ${conn.connection.host} / ${conn.connection.name}`,
+  );
   return conn;
 };
 
